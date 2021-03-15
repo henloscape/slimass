@@ -17,7 +17,7 @@ RUN apt-get -qq install \
     maven ncftp ncurses-dev patch patchelf pkg-config pngcrush \
     pngquant python2.7 python-all-dev re2c schedtool squashfs-tools subversion \
     texinfo unzip w3m xsltproc zip zlib1g-dev lzip \
-    libxml-simple-perl apt-utils libncurses5 curl python-is-python3 -y \
+    libxml-simple-perl apt-utils libncurses5 curl -y \
 RUN export ARCH_ARM_HAVE_TLS_REGISTER=true
 RUN export TARGET_CPU_SMP=true
 RUN export WITH_JIT=true
@@ -27,6 +27,11 @@ RUN ccache -M 50G
 RUN curl -sL https://git.io/file-transfer | sh
 RUN cp -fpr transfer /bin/
 RUN rm -rf transfer
+
+# Fuck Python3 all my homies use python
+RUN rm -rf /usr/bin/python3
+RUN ln -s /usr/bin/python /usr/bin/python3
+
 RUN git config --global color.ui false
 RUN git config --global user.email "hi@gmail.com"
 RUN git config --global user.name "hi"
